@@ -25,21 +25,29 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen flex bg-white text-white">
       {/* Sidebar */}
-      <aside className="w-64 bg-purple-900 p-6 border-r border-purple-800">
-        <h1 className="text-3xl font-semibold text-grey mb-10 hover:text-purple-300 transition-colors duration-200 cursor-pointer">Snooze</h1>
+      <aside className="w-64 bg-purple-900 p-6 border-r border-purple-800 min-h-screen">
+        <h1 className="text-3xl font-semibold text-gray-100 mb-10 hover:text-purple-300 transition-colors duration-200 cursor-pointer">
+          Snooze
+        </h1>
         <nav className="space-y-4">
-          {['Dashboard', 'Sleep Log', 'Insights', 'Calendar', 'Tips'].map(
-            (item) => (
-              <div
-                key={item}
-                className="hover:text-purple-300 transition-colors duration-200 cursor-pointer"
-              >
-                {item}
-              </div>
-            )
-          )}
+          <Link href="/dashboard">
+            <div className="text-white font-semibold cursor-pointer">Dashboard</div>
+          </Link>
+          <Link href="/sleep-log">
+            <div className="text-purple-300 hover:text-white cursor-pointer">Sleep Log</div>
+          </Link>
+          <Link href="/insights">
+            <div className="text-purple-300 hover:text-white cursor-pointer">Insights</div>
+          </Link>
+          <Link href="/calendar">
+            <div className="text-purple-300 hover:text-white cursor-pointer">Calendar</div>
+          </Link>
+          <Link href="/tips">
+            <div className="text-purple-300 hover:text-white cursor-pointer">Tips</div>
+          </Link>
         </nav>
       </aside>
+
 
       
 
@@ -106,7 +114,7 @@ export default function Dashboard() {
           </div>
 
           {/* Add Sleep Entry */}
-          <div className="border border-purple-700 p-6 rounded-lg flex flex-col items-center justify-center text-center hover:shadow-lg hover:bg-purple-100 transition duration-300 text-black">
+          <Link href="/sleep-log" className="border border-purple-700 p-6 rounded-lg flex flex-col items-center justify-center text-center hover:shadow-lg hover:bg-purple-100 transition duration-300 text-black">
             <div className="text-4xl mb-2">➕</div>
             <h3 className="text-xl font-semibold mb-2">Log New Sleep</h3>
             <p className="text-gray-800 mb-4">
@@ -115,7 +123,7 @@ export default function Dashboard() {
             <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition duration-200">
               Add Sleep Entry
             </button>
-          </div>
+          </Link>
         </div>
 
         {/* Graph + Tips */}
