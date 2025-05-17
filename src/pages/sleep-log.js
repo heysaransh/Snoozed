@@ -44,9 +44,6 @@ export default function SleepLog() {
           <Link href="/sleep-log">
             <div className="text-white font-semibold cursor-pointer">Sleep Log</div>
           </Link>
-          <Link href="/insights">
-            <div className="text-purple-300 hover:text-white cursor-pointer">Insights</div>
-          </Link>
           <Link href="/calendar">
             <div className="text-purple-300 hover:text-white cursor-pointer">Calendar</div>
           </Link>

@@ -38,9 +38,6 @@ export default function TipsPage() {
           <Link href="/sleep-log">
             <div className="text-purple-300 hover:text-white cursor-pointer">Sleep Log</div>
           </Link>
-          <Link href="/insights">
-            <div className="text-purple-300 hover:text-white cursor-pointer">Insights</div>
-          </Link>
           <Link href="/calendar">
             <div className="text-purple-300 hover:text-white cursor-pointer">Calendar</div>
           </Link>

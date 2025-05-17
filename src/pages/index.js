@@ -1,116 +1,163 @@
-import Link from 'next/link';
-
-export default function Home() {
-  return (
-    <div className="min-h-screen bg-white text-black relative overflow-hidden font-sans">
-
-      {/* Top Right Logo */}
-      <div className="absolute top-4 right-6 z-10">
-        <h1 className="text-4xl font-extrabold text-purple-600 glow-text">Snooze</h1>
+import {
+    BarChart,
+    Bar,
+    XAxis,
+    YAxis,
+    Tooltip,
+    ResponsiveContainer,
+  } from 'recharts';
+  import Link from 'next/link';
+  
+  const mockData = [
+    { day: 'Mon', hours: 7.5 },
+    { day: 'Tue', hours: 6 },
+    { day: 'Wed', hours: 8 },
+    { day: 'Thu', hours: 6.5 },
+    { day: 'Fri', hours: 7 },
+    { day: 'Sat', hours: 8.5 },
+    { day: 'Sun', hours: 7.2 },
+  ];
+  
+  export default function Dashboard() {
+    const totalSleep = mockData.reduce((acc, curr) => acc + curr.hours, 0);
+    const avgSleep = (totalSleep / mockData.length).toFixed(2);
+  
+    return (
+      <div className="min-h-screen flex bg-white text-white">
+        {/* Sidebar */}
+        <aside className="w-64 bg-purple-900 p-6 border-r border-purple-800 min-h-screen">
+          <h1 className="text-3xl font-semibold text-gray-100 mb-10 hover:text-purple-300 transition-colors duration-200 cursor-pointer">
+            Snooze
+          </h1>
+          <nav className="space-y-4">
+            <Link href="/dashboard">
+              <div className="text-white font-semibold cursor-pointer">Dashboard</div>
+            </Link>
+            <Link href="/sleep-log">
+              <div className="text-purple-300 hover:text-white cursor-pointer">Sleep Log</div>
+            </Link>
+            <Link href="/insights">
+              <div className="text-purple-300 hover:text-white cursor-pointer">Insights</div>
+            </Link>
+            <Link href="/calendar">
+              <div className="text-purple-300 hover:text-white cursor-pointer">Calendar</div>
+            </Link>
+            <Link href="/tips">
+              <div className="text-purple-300 hover:text-white cursor-pointer">Tips</div>
+            </Link>
+          </nav>
+        </aside>
+  
+  
+        
+  
+        {/* Login Button - Top Right */}
+        <div className="absolute top-4 right-6 z-20">
+        <Link href="/login" passHref>
+          <button className="bg-purple-700 hover:bg-purple-900 text-white px-4 py-2 rounded-md transition duration-200">
+            Sign In
+          </button>
+        </Link>
+  
+        </div>
+  
+        {/* Main Content */}
+        <main className="flex-1 p-8">
+          <h2 className="text-3xl text-black font-bold mb-2 hover:text-purple-800 transition-colors duration-200 cursor-pointer">Sleep Dashboard</h2>
+          <p className="text-gray-800 mb-8 hover:text-purple-800 transition-colors duration-200 cursor-pointer">Welcome back to your sleep insights</p>
+  
+          {/* Top Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {/* Sleep Summary */}
+            <div className="border border-purple-700 p-6 rounded-lg hover:shadow-lg hover:bg-purple-50 transition duration-300 text-black">
+              <h3 className="text-xl font-semibold mb-2">😴 Sleep Summary</h3>
+              <p className="text-gray-800">Your recent sleep overview</p>
+              <div className="mt-4 text-black">
+                <p className="text-lg">
+                  Average Duration: <span className="font-bold">{avgSleep}h</span>
+                </p>
+                <p className="text-lg">
+                  Sleep Score: <span className="font-bold">82</span>
+                </p>
+                <p className="text-lg">
+                  Quality: <span className="font-bold">Good</span>
+                </p>
+              </div>
+            </div>
+  
+            {/* Sleep Quality */}
+            <div className="border border-purple-700 p-6 rounded-lg hover:shadow-lg hover:bg-purple-50 transition duration-300 text-black">
+              <h3 className="text-xl font-semibold mb-2">🌙 Sleep Quality</h3>
+              <p className="text-gray-800">Last night's sleep metrics</p>
+              <div className="mt-4 space-y-2">
+                <p className="text-2xl font-bold text-purple-800">78%</p>
+                <div className="text-sm text-gray-800">Overall Quality</div>
+                {[
+                  { label: 'Restfulness', value: 82 },
+                  { label: 'Continuity', value: 76 },
+                  { label: 'Timing', value: 68 },
+                ].map((item, index) => (
+                  <div key={index}>
+                    <div className="flex text-gray-800 justify-between text-sm">
+                      <span>{item.label}</span>
+                      <span>{item.value}%</span>
+                    </div>
+                    <div className="w-full bg-purple-700/20 h-2 rounded-full">
+                      <div
+                        className="bg-purple-500 h-2 rounded-full"
+                        style={{ width: `${item.value}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+  
+            {/* Add Sleep Entry */}
+            <Link href="/sleep-log" className="border border-purple-700 p-6 rounded-lg flex flex-col items-center justify-center text-center hover:shadow-lg hover:bg-purple-100 transition duration-300 text-black">
+              <div className="text-4xl mb-2">➕</div>
+              <h3 className="text-xl font-semibold mb-2">Log New Sleep</h3>
+              <p className="text-gray-800 mb-4">
+                Track your sleep for better insights
+              </p>
+              <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition duration-200">
+                Add Sleep Entry
+              </button>
+            </Link>
+          </div>
+  
+          {/* Graph + Tips */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Graph */}
+            <div className="text-black border border-purple-700 p-6 rounded-lg hover:shadow-lg hover:bg-purple-50 transition duration-300">
+              <h3 className="text-xl font-semibold mb-4">📊 Weekly Sleep Pattern</h3>
+              <ResponsiveContainer width="100%" height={250}>
+                <BarChart data={mockData}>
+                  <XAxis dataKey="day" stroke="#222" />
+                  <YAxis stroke="#222" />
+                  <Tooltip />
+                  <Bar dataKey="hours" fill="#a78bfa" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+  
+            {/* Tips */}
+            <div className="text-black border border-purple-700 p-6 rounded-lg hover:shadow-lg hover:bg-purple-50 transition duration-300">
+              <h3 className="text-xl font-semibold mb-4">💡 Sleep Tips</h3>
+              <div className="bg-yellow-500/10 text-yellow-800 p-4 mb-4 rounded">
+                <strong className="block mb-1">Tip of the day:</strong>
+                Try the 4-7-8 breathing technique: Inhale for 4 seconds, hold for 7, and exhale for 8.
+              </div>
+              <ul className="list-disc pl-5 space-y-2 text-gray-800 text-sm">
+                <li>Maintain a consistent sleep schedule, even on weekends</li>
+                <li>Avoid caffeine and alcohol close to bedtime</li>
+                <li>Exercise regularly, but not too close to bedtime</li>
+                <li>Create a restful environment in your bedroom</li>
+              </ul>
+            </div>
+          </div>
+        </main>
       </div>
-
-      {/* Top Right Navigation */}
-      <div className="absolute top-4 right-6 z-10 flex space-x-6">
-        <Link href="#about" className="text-lg text-purple-400 hover:text-white transition">
-          About
-        </Link>
-        <Link href="#features" className="text-lg text-purple-400 hover:text-white transition">
-          Features
-        </Link>
-      </div>
-
-      {/* Hero Section */}
-      <section className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 text-center bg-black bg-opacity-60">
-        <h2 className="text-6xl font-extrabold text-purple-600 mb-4 animate-fade-in">Better Sleep Starts Tonight</h2>
-        <p className="text-xl text-white max-w-2xl mb-8 animate-fade-in delay-100">
-          Discover smarter ways to rest. Snooze uses smart analytics and calming tools to guide your path to better sleep.
-        </p>
-        <Link
-          href="/auth"
-          className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-xl text-lg transition transform hover:scale-105 shadow-md hover:shadow-purple-700 animate-fade-in delay-300"
-        >
-          Get Started for Free
-        </Link>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="relative z-10 py-20 bg-black bg-opacity-80 text-white text-center">
-        <div className="max-w-3xl mx-auto px-6">
-          <h3 className="text-4xl font-bold text-purple-600 mb-4">About Snooze</h3>
-          <h4 className="text-2xl text-purple-400 mb-4">Transform Your Nights, Energize Your Days</h4>
-          <p className="text-lg text-gray-300">
-            Snooze is a modern sleep tracking solution that helps you understand and optimize your sleep cycles.
-            Using personalized insights, calming features, and device integrations, it’s your all-in-one toolkit
-            for better rest and recovery.
-          </p>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="relative z-10 py-20 bg-black bg-opacity-90 text-white">
-        <div className="text-center mb-12">
-          <h3 className="text-4xl font-bold text-purple-600">Features</h3>
-          <p className="text-lg text-gray-400 mt-2">Packed with everything you need to monitor and improve your sleep.</p>
-        </div>
-
-        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Feature Card 1 */}
-          <div className="bg-[#1f1f1f] border border-purple-600 rounded-2xl p-6 hover:shadow-xl hover:shadow-purple-600 transition transform hover:scale-105">
-            <h4 className="text-2xl font-semibold text-purple-400 mb-4">Sleep Overview</h4>
-            <ul className="space-y-2 text-gray-300 text-base">
-              <li>• Sleep Duration Tracking</li>
-              <li>• Sleep Quality Scores</li>
-              <li>• Weekly & Monthly Reports</li>
-              <li>• Sleep Goal Suggestions</li>
-            </ul>
-          </div>
-
-          {/* Feature Card 2 */}
-          <div className="bg-[#1f1f1f] border border-purple-600 rounded-2xl p-6 hover:shadow-xl hover:shadow-purple-600 transition transform hover:scale-105">
-            <h4 className="text-2xl font-semibold text-purple-400 mb-4">Sleep Log</h4>
-            <ul className="space-y-2 text-gray-300 text-base">
-              <li>• Manual & Auto Logging</li>
-              <li>• Sync with Wearables</li>
-              <li>• Sleep Tags & Notes</li>
-              <li>• Nap & Sleep Debt Tracking</li>
-            </ul>
-          </div>
-
-          {/* Feature Card 3 */}
-          <div className="bg-[#1f1f1f] border border-purple-600 rounded-2xl p-6 hover:shadow-xl hover:shadow-purple-600 transition transform hover:scale-105">
-            <h4 className="text-2xl font-semibold text-purple-400 mb-4">Calendar & Schedule</h4>
-            <ul className="space-y-2 text-gray-300 text-base">
-              <li>• Visual Sleep Calendar</li>
-              <li>• Smart Reminders</li>
-              <li>• Weekly Trends View</li>
-              <li>• Customizable Schedules</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Animations */}
-      <style jsx>{`
-        .animate-fade-in {
-          opacity: 0;
-          animation: fadeIn 1s ease-out forwards;
-        }
-        .delay-100 {
-          animation-delay: 0.1s;
-        }
-        .delay-300 {
-          animation-delay: 0.3s;
-        }
-        @keyframes fadeIn {
-          to {
-            opacity: 1;
-          }
-        }
-
-        .glow-text {
-          text-shadow: 0 0 10px #6a60b8, 0 0 20px #6a60b8, 0 0 30px #6a60b8;
-        }
-      `}</style>
-    </div>
-  );
-}
+    );
+  }
+  
