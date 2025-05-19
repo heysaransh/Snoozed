@@ -1,48 +1,69 @@
-// src/pages/login.js
 import Link from 'next/link';
 
-export default function Login() {
+export default function Signup() {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      {/* Header with Snooze link */}
-      <header>
-        <Link href="/dashboard" legacyBehavior>
-          <a className="py-6 px-5 text-3xl font-semibold text-purple-800 hover:text-purple-700 transition-colors duration-200 cursor-pointer block">
-            Snooze
-          </a>
-        </Link>
-      </header>
+    <div className="relative min-h-screen overflow-hidden text-white">
+      {/* Background Video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+      >
+        <source src="/snooze_bg6.mp4" type="video/mp4" />
+      </video>
 
-      {/* Main login form centered */}
-      <main className="flex-grow flex items-center justify-center">
-        <div className="border border-purple-700 px-4 py-20 rounded-lg bg-purple-50 text-black max-w-md w-full mx-4">
-          {/* Welcome back message */}
-          <p className="text-center text-4xl mb-4 text-black font-semibold">
-            Welcome back!
-          </p>
-          <h1 className="text-xl font-bold mb-6 text-purple-900 text-left">Sign In</h1>
+      {/* Dark overlay */}
+      <div className="absolute top-0 left-0 w-full h-full bg-black/50 z-10" />
+
+      {/* Navbar */}
+      <nav className="fixed top-0 left-0 w-full z-50 flex flex-col sm:flex-row items-center justify-between px-6 py-3 backdrop-blur-sm">
+      <Link href="/dashboard" className="flex items-center space-x-8">
+          <h1
+            className="text-6xl font-bold px-8 text-purple-300"
+            style={{ fontFamily: '"Just Another Hand", cursive' }}
+          >
+            Snooze
+          </h1>
+        </Link>
+        <div className="flex flex-wrap justify-center sm:justify-end space-x-4 sm:space-x-6 text-lg sm:text-xl px-4 mt-2 sm:mt-0">
+          <Link href="/dashboard" className="text-purple-300 hover:text-white cursor-pointer">Dashboard</Link>
+          <Link href="/sleep-log" className="text-purple-300 hover:text-white cursor-pointer">Sleep Log</Link>
+          <Link href="/calendar" className="text-purple-300 hover:text-white cursor-pointer">Calendar</Link>
+          <Link href="/tips" className="text-purple-300 hover:text-white cursor-pointer">Tips</Link>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="relative z-20 flex items-center justify-center min-h-screen pt-28 sm:pt-32 px-4">
+        <div className="text-white p-10 rounded-lg bg-purple-500/5 backdrop-blur-md transition duration-300 hover:backdrop-blur-lg hover:scale-102 hover:shadow-xl transform cursor-pointer">
+          <p className="text-center text-4xl mb-4 font-semibold">Welcome Back!</p>
+          <h1 className="text-xl font-bold mb-2 text-purple-300 text-left">Sign In</h1>
+
           <form>
             <input
               type="email"
               placeholder="Email"
-              className="w-full mb-4 p-3 rounded bg-white border border-purple-600 text-black"
+              className="w-full mb-4 p-3 rounded bg-white/20 border border-purple-400 text-white placeholder-purple-200"
             />
             <input
               type="password"
               placeholder="Password"
-              className="w-full mb-4 p-3 rounded bg-white border border-purple-600 text-black"
+              className="w-full mb-4 p-3 rounded bg-white/20 border border-purple-400 text-white placeholder-purple-200"
             />
             <button
               type="submit"
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded transition"
+              className="w-full bg-purple-700 hover:bg-purple-900 text-white py-2 rounded transition"
             >
-              Sign In
+              login
             </button>
           </form>
-          <p className="mt-4 text-center text-sm">
-            Don't have an account?{' '}
-            <Link href="/signup" className="text-purple-600 hover:underline">
-              Sign Up
+
+          <p className="mt-4 text-center text-sm text-purple-200">
+            Create an new account?{' '}
+            <Link href="/signup" className="text-purple-400 hover:underline">
+              Sign up
             </Link>
           </p>
         </div>

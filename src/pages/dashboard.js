@@ -39,21 +39,21 @@ export default function Dashboard() {
       <div className="absolute top-0 left-0 w-full h-full bg-black/40 z-10"></div>
 
       {/* Navigation Bar */}
-      <nav className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 py-2 backdrop-blur-sm">
+      <nav className="fixed top-0 left-0 w-full z-50 flex flex-col sm:flex-row items-center justify-between px-8 py-2 backdrop-blur-sm">
 
-        <div className="flex items-center space-x-8">
+        <Link href="/dashboard" className="flex items-center space-x-8">
           <h1
             className="text-6xl font-bold px-8 text-purple-300"
             style={{ fontFamily: '"Just Another Hand", cursive' }}
           >
             Snooze
           </h1>
-        </div>
-        <div className="flex space-x-6 px-9 text-xl">
-          <Link href="/dashboard" className="text-white hover:text-purple-300">Dashboard</Link>
-          <Link href="/sleep-log" className="text-white hover:text-purple-300">Sleep Log</Link>
-          <Link href="/calendar" className="text-white hover:text-purple-300">Calendar</Link>
-          <Link href="/tips" className="text-white hover:text-purple-300">Tips</Link>
+        </Link>
+        <div className="flex space-x-4 px-9 text-xl">
+          <Link href="/dashboard" className="text-white font-semibold cursor-pointer">Dashboard</Link>
+          <Link href="/sleep-log" className="text-purple-300 hover:text-white cursor-pointer">Sleep Log</Link>
+          <Link href="/calendar" className="text-purple-300 hover:text-white cursor-pointer">Calendar</Link>
+          <Link href="/tips" className="text-purple-300 hover:text-white cursor-pointer">Tips</Link>
           <Link href="/login" passHref>
             <button className="bg-purple-700 hover:bg-purple-900 text-white px-3 rounded-md transition duration-200">
               Sign In
@@ -162,17 +162,20 @@ export default function Dashboard() {
           
 
         {/* Chart */}
-        <div className="text-white flex flex-col items-center justify-center text-center mt-15 rounded-lg bg-purple-500/5 backdrop-blur-md transition duration-300 hover:backdrop-blur-lg hover:scale-110 hover:shadow-xl transform cursor-pointer p-6">
-          <h3 className="text-3xl font-semibold mb-6">📊 Weekly Sleep Pattern</h3>
-          <ResponsiveContainer width="60%" height={400}>
-            <BarChart data={mockData}>
-              <XAxis dataKey="day" stroke="#fff" />
-              <YAxis stroke="#fff" />
-              <Tooltip />
-              <Bar dataKey="hours" fill="#a78bfa" radius={[10, 10, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
+        <div className="text-white w-full max-w-[800px] rounded-lg bg-purple-500/5 backdrop-blur-md transition duration-300 hover:backdrop-blur-lg hover:scale-105 hover:shadow-xl transform cursor-pointer p-6 sm:p-10 lg:p-20 mx-auto mt-12">
+      <h3 className="text-2xl font-semibold mb-6 text-center">📊 Weekly Sleep Pattern</h3>
+      <div className="w-full h-[300px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={mockData}>
+            <XAxis dataKey="day" stroke="#fff" />
+            <YAxis stroke="#fff" />
+            <Tooltip />
+            <Bar dataKey="hours" fill="#a78bfa" radius={[10, 10, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+
       </main>
     </div>
   );
