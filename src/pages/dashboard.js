@@ -82,7 +82,7 @@ export default function Dashboard() {
             🌙 Sleep Quality
           </h3>
           <p className="text-white-800 flex flex-col items-center justify-center text-center">
-            Last night's sleep metrics
+            Last night&apos;s sleep metrics
           </p>
           <div className="mt-4 space-y-2">
             <p className="text-2xl font-bold text-purple-800">78%</p>
